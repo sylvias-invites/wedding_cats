@@ -126,7 +126,7 @@ function revealEverything() {
                 particleCount: 12,
                 spread: 60,
                 origin: { x: 0.2, y: 0.6 }, // Výstřel zleva
-                colors: ['#cb7f8c', '#ffdce2', '#5B7065', '#ffffff'],
+                colors: ['#636ee6', '#b8d4d7', '#e4def5', '#ffffff'],
                 shapes: ['heart', diamond],
                 scalar: 1.2
             });
@@ -135,7 +135,7 @@ function revealEverything() {
                 particleCount: 12,
                 spread: 60,
                 origin: { x: 0.8, y: 0.6 }, // Výstřel zprava
-                colors: ['#cb7f8c', '#ffdce2', '#5B7065', '#ffffff'],
+                colors: ['#636ee6', '#b8d4d7', '#e4def5', '#ffffff'],
                 shapes: ['heart', diamond],
                 scalar: 1.2
             });
