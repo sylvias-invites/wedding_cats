@@ -206,26 +206,6 @@ function createPet(containerId, imgId, startX, startY) {
     let lastFrameTime = 0;
     let currentWalkStep = 0;
 
-    // Pomocná funkce pro kontrolu, zda bod koliduje s elementem
-    function isCollidingWithTitle(px, py) {
-        const title = document.querySelector('.main-title') || document.getElementById('main-title');
-        if (!title) return false;
-
-        const rect = title.getBoundingClientRect();
-        const petWidth = pet.offsetWidth || 60;
-        const petHeight = pet.offsetHeight || 60;
-
-        // Přidáme bezpečnou mezeru (margin) kolem nadpisu/prvku (např. 15px)
-        const margin = 15;
-
-        // Kontrola překryvu obdélníků (AABB collision)
-        return (
-            px < rect.right + margin &&
-            px + petWidth > rect.left - margin &&
-            py < rect.bottom + margin &&
-            py + petHeight > rect.top - margin
-        );
-    }
 
     function setPetImage(type) {
         petImg.src = images[type];
@@ -250,14 +230,9 @@ function createPet(containerId, imgId, startX, startY) {
             return;
         }
 
-        const nextX = x + (dx / distance) * settings.speed;
-        const nextY = y + (dy / distance) * settings.speed;
+        x += (dx / distance) * settings.speed;
+        y += (dy / distance) * settings.speed;
 
-        // Pokud by kočka cestou vstoupila do oblasti nadpisu, zastaví se a posadí
-        if (isCollidingWithTitle(nextX, nextY)) {
-            stopAndSit();
-            return;
-        }
 
         x = nextX;
         y = nextY;
@@ -289,19 +264,9 @@ function createPet(containerId, imgId, startX, startY) {
         const maxX = window.innerWidth - petWidth - 20;
         const maxY = window.innerHeight - petHeight - 20;
 
-        let newTargetX, newTargetY;
-        let attempts = 0;
-        const maxAttempts = 50; // Zamezí nekonečné smyčce
+        targetX = Math.floor(Math.random() * (maxX - 20)) + 20;
+        targetY = Math.floor(Math.random() * (maxY - 20)) + 20;
 
-        // Generujeme nový cílový bod tak dlouho, dokud nezvolíme místo mimo nadpis
-        do {
-            newTargetX = Math.floor(Math.random() * (maxX - 20)) + 20;
-            newTargetY = Math.floor(Math.random() * (maxY - 20)) + 20;
-            attempts++;
-        } while (isCollidingWithTitle(newTargetX, newTargetY) && attempts < maxAttempts);
-
-        targetX = newTargetX;
-        targetY = newTargetY;
 
         direction = targetX < x ? -1 : 1;
 
