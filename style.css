@@ -286,6 +286,11 @@ body {
     }
 }
 
+/* Otočení druhé kočky vpravo zrcadlově doleva */
+#wedding-pet-2 {
+    transform: scaleX(-1);
+}
+
 /* mobil */
 
 @media (max-width: 600px) {
@@ -294,5 +299,4 @@ body {
         bottom: 10px;
     }
 }
-
 
