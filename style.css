@@ -2,7 +2,7 @@
    1. ZÁKLADNÍ NASTAVENÍ A BAREVNOST
    ========================================== */
 :root {
-    --bg-color: ##fefaf2;
+    --bg-color: #fefaf2;
     --text-color: #4a4a4a;
     --accent-color: #000000;
     --font-heading: 'Great Vibes', cursive;
@@ -72,6 +72,17 @@ body {
     /* Zachování poměru stran (šířka 400px : výška 350px) */
     aspect-ratio: 280 / 350; 
     margin: 10px auto;
+}
+
+/* Plátno srdíčka (musí ležet přesně nad textem) */
+#scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Položí srdíčko NAD text */
+    touch-action: none;
 }
 
 /* Kontejner pro text v srdíčku */
@@ -222,7 +233,7 @@ body {
 
 /* 🐱 SVATEBNÍ KOČIČKA */
 
-#wedding-pet {
+.wedding-pet {
     position: fixed;
     left: 20px;
     bottom: 15px;
@@ -240,7 +251,7 @@ body {
 }
 
 
-#wedding-pet img {
+.wedding-pet img {
     display: block;
     width: 100%;
     height: auto;
@@ -253,7 +264,7 @@ body {
 
 /* malý efekt při kliknutí */
 
-#wedding-pet.pet-jump {
+.wedding-pet.pet-jump {
     animation: petJump 0.5s ease;
 }
 
@@ -278,7 +289,7 @@ body {
 /* mobil */
 
 @media (max-width: 600px) {
-    #wedding-pet {
+    .wedding-pet {
         width: 75px;
         bottom: 10px;
     }
