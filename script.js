@@ -325,7 +325,6 @@ function createPet(containerId, imgId, startX, startY) {
             startWalking();
         }, time);
     }
-}
 
     // Kliknutí na kočku (vyskočení)
     pet.addEventListener("click", (e) => {
