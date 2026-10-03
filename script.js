@@ -38,20 +38,22 @@ function initCanvas() {
 
     ctx.scale(dpr, dpr);
 
+    cost offsetX = -15;
+
     if (heartImg.complete && heartImg.naturalWidth !== 0) {
-        // 1. Vytvoření zlatého podkladu v paměti
+        // 1. Vytvoření podkladu v paměti
         const goldCanvas = document.createElement("canvas");
         goldCanvas.width = canvas.width;
         goldCanvas.height = canvas.height;
         const gCtx = goldCanvas.getContext("2d");
         gCtx.scale(dpr, dpr);
 
-        gCtx.drawImage(heartImg, 0, 0, w, h);
+        gCtx.drawImage(heartImg, offsetX, 0, w, h);
         gCtx.globalCompositeOperation = "source-in";
         gCtx.fillStyle = "#dce0ff";
         gCtx.fillRect(0, 0, w, h);
 
-        // 2. Nastavení zlatého podkladu pro text
+        // 2. Nastavení podkladu pro text
         const revealText = document.querySelector(".reveal-text");
         if (revealText) {
             revealText.style.backgroundImage = `url(${goldCanvas.toDataURL()})`;
@@ -61,7 +63,7 @@ function initCanvas() {
         }
 
         // 3. Vykreslení stírací vrstvy (růží)
-        ctx.drawImage(heartImg, 0, 0, w, h);
+        ctx.drawImage(heartImg, offsetX, 0, w, h);
     }
 }
 
