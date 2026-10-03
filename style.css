@@ -100,7 +100,7 @@ body {
     text-align: center;
     
     /* Vymezení prostoru uvnitř srdíčka */
-    padding: 25px 45px; 
+    padding: 25px 50px; 
     box-sizing: border-box;
     z-index: 1;
     background: transparent;
@@ -125,8 +125,8 @@ body {
 /* Úprava data uvnitř srdce */
 .reveal-text .date {
     font-family: var(--font-body);
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--accent-color, #000000);
     letter-spacing: 1px;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
