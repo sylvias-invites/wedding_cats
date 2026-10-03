@@ -14,23 +14,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1.13">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-     <style>
-        /* Na začátku tělo skryjeme */
-        body {
-            visibility: hidden;
-        }
-    </style>
     
 </head>
 
-<div id="wedding-pet" aria-label="Kočička">
-    <img id="wedding-pet-img" src="idle.png" alt="">
-</div>
-
 <body>
 
-    <!-- 1. ÚVODNÍ STRÁNKA (STÍRACÍ) -->
+    <div id="wedding-pet" aria-label="Kočička">
+        <img id="wedding-pet-img" src="idle.png" alt="">
+    </div>
+    
+    <!-- 1. ÚVODNÍ STRÁNKA -->
     <div class="scratch-screen" id="scratch-screen">
         <h1 class="main-title" id="main-title">Emma a Marek</h1>
         
@@ -47,7 +40,7 @@
             <canvas id="scratch-canvas" width="320" height="350"></canvas>
         </div>
 
-        <p class="instruction" id="instruction">Setři srdíčko</p>
+        <p class="instruction" id="instruction">Klikni na sdíčko</p>
         
         <button class="next-btn" id="next-btn" onclick="openDetails()">Vstoupit na pozvánku &rarr;</button>
     </div>
