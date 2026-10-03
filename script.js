@@ -87,23 +87,21 @@ canvas.addEventListener("click", () => {
     setTimeout(() => {
         canvas.classList.remove("shake-heart");
         revealEverything();
-    }, 600);
+    }, 800);
 });
 
 function revealEverything() {
     if (hasRevealed) return;
     hasRevealed = true;
 
-    // Schování textu nad srdíčkem
-
-    const mainTitle = document.getElementById("main-title");
+    // const mainTitle = document.getElementById("main-title");
     
-    if (mainTitle) {
+   // if (mainTitle) {
 
-        mainTitle.style.transition = "opacity 0.6s ease";
+   //     mainTitle.style.transition = "opacity 0.6s ease";
 
-        mainTitle.style.opacity = "0";
-    }
+   //    mainTitle.style.opacity = "0";
+   //  }
 
     // 2. Spuštění trvajících konfet (např. po dobu 3 sekund)
     if (typeof confetti === "function") {
