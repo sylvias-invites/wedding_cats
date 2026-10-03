@@ -220,45 +220,6 @@ body {
     color: var(--text-color);
 }
 
-/* Postavička kočičky dole na obrazovce */
-.pixel-cat {
-    position: fixed;
-    bottom: 5px; /* Vzdálenost od spodního okraje */
-    left: -60px; /* Začíná schovaná vlevo mimo obrazovku */
-    width: 45px;  /* Velikost kočičky */
-    height: auto;
-    z-index: 999;
-    pointer-events: none; /* Umožní klikat přes kočičku */
-    image-rendering: pixelated; /* Zachová ostré pixely */
-    
-    /* Plynulý přechod zlevna doprava a zpět */
-    animation: walkAcross 16s linear infinite;
-}
-
-/* Animace pohybu a otáčení postavičky */
-@keyframes walkAcross {
-    0% {
-        left: -60px;
-        transform: scaleX(1); /* Jde doprava */
-    }
-    45% {
-        left: 100vw;
-        transform: scaleX(1);
-    }
-    50% {
-        left: 100vw;
-        transform: scaleX(-1); /* Otočí postavičku čumákem doleva */
-    }
-    95% {
-        left: -60px;
-        transform: scaleX(-1); /* Jde zpátky doleva */
-    }
-    100% {
-        left: -60px;
-        transform: scaleX(1);
-    }
-}
-
 /* 🐱 SVATEBNÍ KOČIČKA */
 
 #wedding-pet {
@@ -277,6 +238,7 @@ body {
 
     transition: transform 0.2s ease;
 }
+
 
 #wedding-pet img {
     display: block;
