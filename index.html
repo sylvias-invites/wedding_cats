@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Hey you</title>
+    <meta name="description" content="Setři srdíčko!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image:url" content="https://sylvias-invites.github.io/weddingquestion/heart_nahled.jpeg?v=3">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sylvias-invites.github.io/weddingquestion/">
+    <meta property="og:title" content="Hey you">
+    <meta property="og:description" content="Setři srdíčko!">
+    <meta property="og:image" itemprop="image" content="https://sylvias-invites.github.io/weddingquestion/heart_nahled.jpeg">
+    <meta property="og:image:secure_url" content="https://sylvias-invites.github.io/weddingquestion/heart_nahled.jpeg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hey you">
+    <meta name="twitter:description" content="Setři srdíčko!">
+    <meta name="twitter:image" content="https://sylvias-invites.github.io/weddingquestion/heart_nahled.jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=30.5">
+
+    <script>
+        // Počkáme, až se načtou všechna písma, než zobrazíme tělo stránky
+        document.fonts.ready.then(function () {
+            document.body.style.visibility = "visible";
+        });
+    </script>
+
+    <style>
+        /* Na začátku tělo skryjeme */
+        body {
+            visibility: hidden;
+        }
+    </style>
+
+</head>
+
+<div id="wedding-pet" aria-label="Kočička">
+    <img id="wedding-pet-img" src="idle.png" alt="">
+</div>
+    
+<body>
+
+    <div class="screen">
+
+        <div id="heart-wrapper" class="heart-wrapper">
+            <img src="listky.png" id="heart-background" class="hidden-at-start" alt="pozadi">
+            <div class="invite-container">
+                <div class="invite-text">
+                    <h2>Budeš moje svědkyně?<br>💚</h2>
+
+                </div>
+            </div>
+
+            <canvas id="scratch"></canvas>
+        </div>
+
+        <div id="info-button-container" class="hidden-info" style="display: none; opacity: 0;">
+            <div class="info-pill">
+                <span class="info-icon">ⓘ</span>
+                <span class="info-text">Pro doladění dresscode se ti ozveme</span>
+            </div>
+        </div>
+
+        <p id="instruction">Setři srdíčko</p>
+
+        <div id="confetti-container"></div>
+
+        <div id="button-container" class="hidden-buttons">
+            <button class="btn btn-yes" onclick="handleYesAnswer()">Ano</button>
+
+            <button class="btn btn-no" id="noBtn">Ne</button>
+        </div>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js?v=9.88"></script>
+</body>
+</html>
