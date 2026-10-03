@@ -38,7 +38,7 @@ function initCanvas() {
 
     ctx.scale(dpr, dpr);
 
-    const offsetX = -15;
+    const offsetX = -10;
 
     if (heartImg.complete && heartImg.naturalWidth !== 0) {
         // 1. Vytvoření podkladu v paměti
