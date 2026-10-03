@@ -211,7 +211,7 @@ function createPet(containerId, imgId, startX, startY) {
         petImg.src = images[type];
     }
 
-    function movePet(timestamp) {
+        function movePet(timestamp) {
         if (!walking) return;
 
         if (!lastFrameTime) lastFrameTime = timestamp;
@@ -230,12 +230,9 @@ function createPet(containerId, imgId, startX, startY) {
             return;
         }
 
+        // Výpočet nové pozice
         x += (dx / distance) * settings.speed;
         y += (dy / distance) * settings.speed;
-
-
-        x = nextX;
-        y = nextY;
 
         pet.style.left = `${x}px`;
         pet.style.top = `${y}px`;
@@ -248,6 +245,7 @@ function createPet(containerId, imgId, startX, startY) {
 
         requestAnimationFrame(movePet);
     }
+
 
     function startWalking() {
         clearTimeout(timer);
