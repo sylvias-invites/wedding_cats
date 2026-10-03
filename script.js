@@ -225,3 +225,171 @@ function openDetails() {
         contentScreen.classList.add("active");
     }
 }
+
+// ======================================================
+// 🐱 SVATEBNÍ KOČIČKA (Bez blokování srdíčka)
+// ======================================================
+
+(() => {
+    const pet = document.getElementById("wedding-pet");
+    const petImg = document.getElementById("wedding-pet-img");
+
+    if (!pet || !petImg) return;
+
+    const images = {
+        idle: "idle.png",
+        sit: "sit.png",
+        walk: "walk.png"
+    };
+
+    const settings = {
+       speed: 1.2,
+       walkMin: 3000,
+       walkMax: 7000,
+       sitMin: 800,
+       sitMax: 2000
+    };
+
+    let x = 20;
+    let y = window.innerHeight - 100;
+
+    let targetX = x;
+    let targetY = y;
+
+    let direction = 1;
+    let walking = false;
+    let timer = null;
+
+    let lastFrameTime = 0;
+    let currentWalkStep = 0;
+
+    function setPetImage(type) {
+        petImg.src = images[type];
+    }
+
+    function movePet(timestamp) {
+        if (!walking) return;
+
+        // Animace kroku
+        if (!lastFrameTime) lastFrameTime = timestamp;
+        if (timestamp - lastFrameTime > 200) {
+            currentWalkStep = currentWalkStep === 0 ? 1 : 0;
+            setPetImage(currentWalkStep === 0 ? "walk" : "idle");
+            lastFrameTime = timestamp;
+        }
+
+        // Výpočet vzdálenosti k cíli
+        const dx = targetX - x;
+        const dy = targetY - y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Zastavení při dosažení cíle
+        if (distance < 5) {
+            stopAndSit();
+            return;
+        }
+
+        // Posun kočky k cíli
+        x += (dx / distance) * settings.speed;
+        y += (dy / distance) * settings.speed;
+
+        pet.style.left = `${x}px`;
+        pet.style.top = `${y}px`;
+
+        // Otočení obrázku podle směru chůze
+        if (direction === -1) {
+            pet.style.transform = "scaleX(-1)";
+        } else {
+            pet.style.transform = "scaleX(1)";
+        }
+
+        requestAnimationFrame(movePet);
+    }
+
+    function startWalking() {
+        clearTimeout(timer);
+
+        walking = true;
+        lastFrameTime = 0;
+        currentWalkStep = 0;
+
+        setPetImage("walk");
+
+        const petWidth = pet.offsetWidth || 60;
+        const petHeight = pet.offsetHeight || 60;
+
+        const maxX = window.innerWidth - petWidth - 20;
+        const maxY = window.innerHeight - petHeight - 20;
+
+        // Generování libovolného cíle na celé obrazovce
+        targetX = Math.floor(Math.random() * (maxX - 20)) + 20;
+        targetY = Math.floor(Math.random() * (maxY - 20)) + 20;
+
+        direction = targetX < x ? -1 : 1;
+
+        requestAnimationFrame(movePet);
+
+        const time = Math.random() * (settings.walkMax - settings.walkMin) + settings.walkMin;
+
+        timer = setTimeout(() => {
+            stopAndSit();
+        }, time);
+    }
+
+    function stopAndSit() {
+        clearTimeout(timer);
+        walking = false;
+        setPetImage("sit");
+
+        const time = Math.random() * (settings.sitMax - settings.sitMin) + settings.sitMin;
+
+        timer = setTimeout(() => {
+            startWalking();
+        }, time);
+    }
+
+        // Reakce na kliknutí přímo na kočku
+    pet.addEventListener("click", (e) => {
+        e.stopPropagation(); // Zamezí šíření kliknutí na okolní prvky
+
+        clearTimeout(timer);
+        walking = false;
+
+        setPetImage("idle");
+
+        pet.classList.remove("pet-jump");
+        void pet.offsetWidth;
+        pet.classList.add("pet-jump");
+
+        setTimeout(() => {
+            pet.classList.remove("pet-jump");
+            setPetImage("sit");
+
+            timer = setTimeout(() => {
+                startWalking();
+            }, 600);
+        }, 500);
+    });
+
+
+    // Kontrola hranic při změně velikosti okna
+    window.addEventListener("resize", () => {
+        const maxX = window.innerWidth - (pet.offsetWidth || 60) - 10;
+        const maxY = window.innerHeight - (pet.offsetHeight || 60) - 10;
+
+        if (x > maxX) x = maxX;
+        if (y > maxY) y = maxY;
+    });
+
+    // Inicializace
+    pet.style.left = `${x}px`;
+    pet.style.top = `${y}px`;
+    setPetImage("idle");
+
+    setTimeout(() => {
+        startWalking();
+    }, 1500);
+})();
+
+
+
