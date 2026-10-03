@@ -172,12 +172,12 @@ function openDetails() {
 }
 
 // ======================================================
-// 🐱 SVATEBNÍ KOČIČKA (Bez blokování srdíčka)
+// 🐱 SVATEBNÍ KOČIČKY (Dvě nezávislé kočky)
 // ======================================================
 
-(() => {
-    const pet = document.getElementById("wedding-pet");
-    const petImg = document.getElementById("wedding-pet-img");
+function createPet(containerId, imgId, startX, startY) {
+    const pet = document.getElementById(containerId);
+    const petImg = document.getElementById(imgId);
 
     if (!pet || !petImg) return;
 
@@ -188,15 +188,15 @@ function openDetails() {
     };
 
     const settings = {
-       speed: 1.2,
-       walkMin: 3000,
-       walkMax: 7000,
-       sitMin: 800,
-       sitMax: 2000
+        speed: 1.2,
+        walkMin: 3000,
+        walkMax: 7000,
+        sitMin: 800,
+        sitMax: 2000
     };
 
-    let x = 20;
-    let y = window.innerHeight - 100;
+    let x = startX;
+    let y = startY;
 
     let targetX = x;
     let targetY = y;
@@ -215,7 +215,6 @@ function openDetails() {
     function movePet(timestamp) {
         if (!walking) return;
 
-        // Animace kroku
         if (!lastFrameTime) lastFrameTime = timestamp;
         if (timestamp - lastFrameTime > 200) {
             currentWalkStep = currentWalkStep === 0 ? 1 : 0;
@@ -223,25 +222,21 @@ function openDetails() {
             lastFrameTime = timestamp;
         }
 
-        // Výpočet vzdálenosti k cíli
         const dx = targetX - x;
         const dy = targetY - y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Zastavení při dosažení cíle
         if (distance < 5) {
             stopAndSit();
             return;
         }
 
-        // Posun kočky k cíli
         x += (dx / distance) * settings.speed;
         y += (dy / distance) * settings.speed;
 
         pet.style.left = `${x}px`;
         pet.style.top = `${y}px`;
 
-        // Otočení obrázku podle směru chůze
         if (direction === -1) {
             pet.style.transform = "scaleX(-1)";
         } else {
@@ -266,7 +261,6 @@ function openDetails() {
         const maxX = window.innerWidth - petWidth - 20;
         const maxY = window.innerHeight - petHeight - 20;
 
-        // Generování libovolného cíle na celé obrazovce
         targetX = Math.floor(Math.random() * (maxX - 20)) + 20;
         targetY = Math.floor(Math.random() * (maxY - 20)) + 20;
 
@@ -293,9 +287,9 @@ function openDetails() {
         }, time);
     }
 
-        // Reakce na kliknutí přímo na kočku
+    // Kliknutí na kočku (vyskočení)
     pet.addEventListener("click", (e) => {
-        e.stopPropagation(); // Zamezí šíření kliknutí na okolní prvky
+        e.stopPropagation();
 
         clearTimeout(timer);
         walking = false;
@@ -316,8 +310,7 @@ function openDetails() {
         }, 500);
     });
 
-
-    // Kontrola hranic při změně velikosti okna
+    // Úprava pozice při změně okna
     window.addEventListener("resize", () => {
         const maxX = window.innerWidth - (pet.offsetWidth || 60) - 10;
         const maxY = window.innerHeight - (pet.offsetHeight || 60) - 10;
@@ -326,15 +319,16 @@ function openDetails() {
         if (y > maxY) y = maxY;
     });
 
-    // Inicializace
+    // Start
     pet.style.left = `${x}px`;
     pet.style.top = `${y}px`;
     setPetImage("idle");
 
     setTimeout(() => {
         startWalking();
-    }, 1500);
-})();
+    }, 1000 + Math.random() * 1000); // Různý start, aby nechodily synchronně
+}
 
-
-
+// Inicializace 1. a 2. kočky (startují z různých rohů)
+createPet("wedding-pet", "wedding-pet-img", 20, window.innerHeight - 100);
+createPet("wedding-pet-2", "wedding-pet-img-2", window.innerWidth - 80, window.innerHeight - 100);
