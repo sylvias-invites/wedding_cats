@@ -100,7 +100,7 @@ body {
     text-align: center;
     
     /* Vymezení prostoru uvnitř srdíčka */
-    padding: 25px 50px; 
+    padding: 25px 45px; 
     box-sizing: border-box;
     z-index: 1;
     background: transparent;
@@ -129,7 +129,7 @@ body {
     font-weight: 500;
     color: var(--accent-color, #000000);
     letter-spacing: 1px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 
