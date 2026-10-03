@@ -48,7 +48,7 @@ function initCanvas() {
 
         gCtx.drawImage(heartImg, 0, 0, w, h);
         gCtx.globalCompositeOperation = "source-in";
-        gCtx.fillStyle = "#ffe7eb";
+        gCtx.fillStyle = "#dce0ff";
         gCtx.fillRect(0, 0, w, h);
 
         // 2. Nastavení zlatého podkladu pro text
@@ -73,77 +73,20 @@ window.addEventListener("resize", () => {
     }
 });
 
-// Události pro stírání (myš i dotykové displeje)
-["mousedown", "touchstart"].forEach(evt =>
-    canvas.addEventListener(evt, (e) => {
-        scratching = true;
-        scratch(e);
-    }, { passive: false })
-);
+canvas.style.cursor = "pointer";
 
-["mouseup", "touchend"].forEach(evt =>
-    canvas.addEventListener(evt, () => scratching = false)
-);
+canvas.addEventListener("click", () => {
+    if (hasRevealed) return;
 
-["mousemove", "touchmove"].forEach(evt =>
-    canvas.addEventListener(evt, scratch, { passive: false })
-);
+    // 1. Spustíme animaci zatřesení
+    canvas.classList.add("shake-heart");
 
-function scratch(e) {
-    if (!scratching) return;
-
-    if (e.cancelable) e.preventDefault();
-    e.stopPropagation();
-
-    const rect = canvas.getBoundingClientRect();
-
-    let clientX, clientY;
-    if (e.touches && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-    } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
-    }
-
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-
-    // Přepnutí do režimu gumování
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(x, y, 35, 0, Math.PI * 2); // Velikost stíracího štětce
-    ctx.fill();
-
-    checkReveal();
-}
-
-function checkReveal() {
-    try {
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const pixels = imageData.data;
-        let cleared = 0;
-
-        // Kontrola průhledných pixelů
-        for (let i = 3; i < pixels.length; i += 4) {
-            if (pixels[i] < 128) cleared++;
-        }
-
-        const percentage = (cleared / (pixels.length / 4)) * 100;
-
-        // Pokud je setřeno více než 45 %, odhalí se tlačítko dál
-        if (percentage > 85) {
-            revealEverything();
-        }
-    } catch (e) {
-        // Pojistka pro případ CORS blokace při lokálním otevírání
-        if (!window.backupTimer) {
-            window.backupTimer = setTimeout(revealEverything, 2000);
-        }
-    }
-}
-
-let hasRevealed = false; // Pojistka proti opakovanému spuštění
+    // 2. Po dokončení třesení (800 ms) spustíme konfety a odhalení
+    setTimeout(() => {
+        canvas.classList.remove("shake-heart");
+        revealEverything();
+    }, 600);
+});
 
 function revealEverything() {
     if (hasRevealed) return;
