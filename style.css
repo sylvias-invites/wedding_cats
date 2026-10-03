@@ -129,7 +129,7 @@ body {
     font-weight: 600;
     color: var(--accent-color, #000000);
     letter-spacing: 1px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 
