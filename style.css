@@ -56,7 +56,7 @@ body {
 }
 
 .main-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 3.2rem;
     color: var(--accent-color);
     margin-top: 30px;
