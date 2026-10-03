@@ -2,7 +2,7 @@
    1. ZÁKLADNÍ NASTAVENÍ A BAREVNOST
    ========================================== */
 :root {
-    --bg-color: #fcfbf9;
+    --bg-color: #EED8D8;
     --text-color: #4a4a4a;
     --accent-color: #000000;
     --font-heading: 'Great Vibes', cursive;
@@ -17,17 +17,8 @@
 
 body {
     background-color: var(--bg-color);
-    background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.95) 1px, transparent 1px),
-        radial-gradient(rgba(192, 192, 192, 0.6) 1.2px, transparent 1.2px),
-        radial-gradient(rgba(220, 225, 230, 0.5) 1.5px, transparent 1.5px);
-    
     background-size: 35px 35px, 20px 20px, 50px 50px;
     background-position: 0 0, 10px 10px, 25px 25px;
-    
-    /* Animace stříbrného blýskání */
-    animation: sparkle 4s infinite linear;
-    
     color: var(--text-color);
     font-family: var(--font-body);
     display: flex;
@@ -263,6 +254,69 @@ body {
     100% {
         left: -60px;
         transform: scaleX(1);
+    }
+}
+
+/* 🐱 SVATEBNÍ KOČIČKA */
+
+#wedding-pet {
+    position: fixed;
+    left: 20px;
+    bottom: 15px;
+
+    width: 100px;
+    z-index: 9999;
+
+    pointer-events: none;
+    cursor: pointer;
+
+    user-select: none;
+    touch-action: manipulation;
+
+    transition: transform 0.2s ease;
+}
+
+#wedding-pet img {
+    display: block;
+    width: 100%;
+    height: auto;
+
+    image-rendering: pixelated;
+
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* malý efekt při kliknutí */
+
+#wedding-pet.pet-jump {
+    animation: petJump 0.5s ease;
+}
+
+@keyframes petJump {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-30px) rotate(-5deg);
+    }
+
+    70% {
+        transform: translateY(0) rotate(5deg);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* mobil */
+
+@media (max-width: 600px) {
+    #wedding-pet {
+        width: 75px;
+        bottom: 10px;
     }
 }
 
