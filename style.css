@@ -59,7 +59,8 @@ body {
     font-family: var(--font-heading);
     font-size: 3.2rem;
     color: var(--accent-color);
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 25px;
     font-weight: normal;
     transition: opacity 0.6s ease;
 }
@@ -149,7 +150,7 @@ body {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #8e8e8e;
+    color: #4a4a4a;
     margin-top: 25px;
     transition: opacity 0.3s ease;
 }
@@ -159,8 +160,8 @@ body {
     margin-top: 20px;
     padding: 12px 28px;
     
-    /* Bílé pozadí a černý text */
-    background-color: #ffffff;
+    /* pozadí a černý text */
+    background-color: #dce0ff;
     color: #000000;
     
     border: 2px solid #000000;
