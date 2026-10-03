@@ -56,8 +56,8 @@ body {
 }
 
 .main-title {
-    font-family: var(--font-body);
-    font-size: 3.2rem;
+    font-family: var(--font-heading);
+    font-size: 3rem;
     color: var(--accent-color);
     margin-top: 30px;
     margin-bottom: 10px;
@@ -108,7 +108,7 @@ body {
 
 /* Úprava nadpisu uvnitř srdce */
 .reveal-text h2 {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 1.8rem; /* Zmenšení písma, aby se vešlo */
     color: var(--accent-color, #000000);
     margin: 0 0 10px 0;
