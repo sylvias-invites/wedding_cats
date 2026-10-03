@@ -1,462 +1,268 @@
-﻿﻿﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+/* ==========================================
+   1. ZÁKLADNÍ NASTAVENÍ A BAREVNOST
+   ========================================== */
+:root {
+    --bg-color: #fcfbf9;
+    --text-color: #4a4a4a;
+    --accent-color: #000000;
+    --font-heading: 'Great Vibes', cursive;
+    --font-body: 'Montserrat', sans-serif;
+}
 
-
-*, *::before, *::after {
+* {
     box-sizing: border-box;
-    -webkit-text-size-adjust: none; /* Brání iOS měnit velikost písma */
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background: #dfe5dd;
-    width: 100%;
-    max-width: 100vw;
-    margin: 0;
-    padding: 0;
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.95) 1px, transparent 1px),
+        radial-gradient(rgba(192, 192, 192, 0.6) 1.2px, transparent 1.2px),
+        radial-gradient(rgba(220, 225, 230, 0.5) 1.5px, transparent 1.5px);
+    
+    background-size: 35px 35px, 20px 20px, 50px 50px;
+    background-position: 0 0, 10px 10px, 25px 25px;
+    
+    /* Animace stříbrného blýskání */
+    animation: sparkle 4s infinite linear;
+    
+    color: var(--text-color);
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    font-family: 'Great Vibes', cursive;
-    color: #2d2d2d;
+    text-align: center;
     overflow-x: hidden;
-    /* Žádný flex, žádné centrování tady! */
-    position: relative;
+}
+/* Animace pohybu a kmitání stříbrných třpytek */
+@keyframes sparkle {
+    0% {
+        background-position: 0 0, 10px 10px, 25px 25px;
+    }
+    50% {
+        background-position: 10px 18px, 22px 6px, 12px 35px;
+    }
+    100% {
+        background-position: 0 0, 10px 10px, 25px 25px;
+    }
 }
 
-html, body {
-    overflow-x: hidden;
-}
-
-.screen {
-    width: 100%;
-    max-width: 500px;
-    min-height: 100vh;
-    margin: 0 auto;
-
+/* ==========================================
+   2. ÚVODNÍ STÍRACÍ STRÁNKA
+   ========================================== */
+.scratch-screen {
     display: flex;
     flex-direction: column;
-
-    justify-content: center; /* 🔥 místo center */
     align-items: center;
-
-   /* padding: 40px 10px 20px; /* přidáme prostor nahoře */
-    gap: 10px;
-    overflow-x: hidden;
-
-    overflow-y: auto; /* důležité */
-}
-
-
-/* Nadpisy Great Vibes (ozdobné) */
-h1, h2.info-titlet, h3.info-subtitle, h3.info-title-airy, .initials, h4 {
-    font-family: 'Great Vibes', cursive !important;
-    font-weight: 400 !important;
-}
-
-h1 {
-    color: black;
-    font-size: 3.8rem !important;
-    margin: 0 !important; /* Žádný margin, mezeru řeší 'gap' v .screen */
-    line-height: 1.1;
-}
-
-
-.initials {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.8rem !important;
-    color: black;
-    margin: 0 !important; /* Přitáhne iniciály k h1 a srdci */
-    line-height: 1;
-}
-
-#instruction {
-    margin: 0 !important;
-    padding: 0 !important;
-    color: rgba(0,0,0,0.3);
-    font-family: 'Archivo Narrow', sans-serif !important;
-    font-size: 1.4rem !important;
-    letter-spacing: 2px;
-    line-height: 1;
-}
-
-.invite-text {
-    position: relative;
-    top: -10px;
-    text-align: center;
-    z-index: 2; /* Úplně vespod */
-    width: 80%;
-}
-
-.invite-text h2 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
-    margin-bottom: 8px;
-    margin-top: 20px; /* <--- Přidejte tuto vlastnost */
-    font-weight: 400;
-}
-
-.invite-text p {
-    font-size: 1.2rem;
-    line-height: 1.2;
-    margin: 5px 0;
-    font-weight: 400;
-}
-/* SPECIFICKY DATUM */
-.invite-text .date {
-    font-weight: 700; /* Tučné písmo pro datum */
-    font-size: 2rem; /* Větší písmo jen pro datum */
-    display: inline-block;
-    margin-top: 1px;
-    margin-bottom: 7px;
-}
-
-/* Úprava samotného odpočtu v srdíčku */
-#countdown {
-    gap: 8px !important; /* Zmenšíme mezery mezi políčky, aby se to lépe vešlo do špičky srdce */
-    margin-top: 0 !important;
-}
-
-.heart-wrapper {
-    width: 100%; /* Srdce zabere 85% šířky dostupné v .screen */
-    max-width: 320px; /* Aby na velkých mobilech nebylo obří */
-    aspect-ratio: 320 / 310;
-    position: relative;
-    z-index: 2;
-    margin: 10px auto !important; /* Menší mezery nad a pod */
-    flex-shrink: 0 !important; /* Zakáže prohlížeči srdce mačkat */
-    background: transparent !important;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    flex-shrink: 0 !important; /* ZÁKAZ SMRŠTĚNÍ */
-    overflow: hidden;
-}
-
-.heart-wrapper.ready {
-    opacity: 1 !important;
-}
-
-#heart-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    z-index: 1; /* Nejnižší vrstva */
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-#scratch {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important; /* Pojistka proti skrytí */
-    z-index: 10 !important; /* Nad textem */
-    touch-action: none; /* DŮLEŽITÉ pro mobily */
-    cursor: crosshair;
-}
-
-.invite-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
     justify-content: center;
-    align-items: center;
-    z-index: 2; /* Pod canvasem */
-    pointer-events: none;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-canvas {
-    width: 100% !important;
-    height: 100% !important;
-    touch-action: none;
-    display: block;
-    max-width: 100%;
+.main-title {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    font-weight: normal;
+    transition: opacity 0.6s ease;
 }
 
-.hidden {
-    display: none !important;
+/* Kontejner pro srdíčko */
+.heart-container {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    /* Zachování poměru stran (šířka 400px : výška 350px) */
+    aspect-ratio: 280 / 350; 
+    margin: 10px auto;
 }
 
-.hidden-at-start {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-
-#confetti-container {
-    position: fixed;
+/* Kontejner pro text v srdíčku */
+.reveal-text {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none !important;
-    z-index: 999; /* Aby byly nad vším ostatním */
-    overflow: hidden; /* Pojistka proti vyjíždění konfet ven */
-}
-
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    z-index: 10;
-    pointer-events: none;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-}
-
-/* Nastavení pro tablety a počítače (obrazovka širší než 768px) */
-@media (min-width: 768px) {
-    .screen {
-        padding-top: 0; /* Zrušíme ten horní okraj, co jsme dávali kvůli mobilu */
-    }
-
-    h1 {
-        font-size: 5rem; /* Na velkém monitoru si můžeme dovolit větší nadpis */
-        margin-bottom: 30px;
-    }
-
-    .heart-wrapper {
-        max-width: 490px; /* Srdce na desktopu může být o něco větší */
-    }
-}
-
-.sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #dfe5dd;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1000;
-    box-shadow: 0 0 5px #fff, 0 0 10px #ffd700;
-}
-
-/* Animace pro bliknutí jiskry */
-@keyframes sparkleAnim {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-
-    50% {
-        transform: scale(1.5);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(0);
-        opacity: 0;
-    }
-}
-
-.hidden-buttons {
-    position: fixed;
-    bottom: 10%; /* Zobrazí se tam, kde byla instrukce */
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 20px;
-    z-index: 10;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s ease-in-out, visibility 1s;
+    flex-direction: column; /* Seřadí nadpis a datum pod sebe */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    /* Vymezení prostoru uvnitř srdíčka */
+    padding: 25px 45px; 
+    box-sizing: border-box;
+    z-index: 1;
+    background: transparent;
 }
 
-    .hidden-buttons.show {
-        opacity: 1;
-        visibility: visible;
-    }
+/* Úprava nadpisu uvnitř srdce */
+.reveal-text h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem; /* Zmenšení písma, aby se vešlo */
+    color: var(--accent-color, #000000);
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+}
 
-.btn {
-    padding: 12px 40px;
-    font-family: 'Archivo Narrow', sans-serif; /* Sjednoceno s instrukcemi */
-    font-weight: 400;
-    font-size: 1.1rem;
+/* Odsazení odstavce */
+.reveal-text p {
+    margin: 0;
+}
+
+/* Úprava data uvnitř srdce */
+.reveal-text .date {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-color, #000000);
+    letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Stírací plátno nahoře */
+#scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    cursor: pointer;
+    touch-action: none;
+    transition: opacity 0.6s ease;
+}
+
+.instruction {
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border: 1.5px solid rgba(0,0,0,0.15); /* Jemná linka jako u info ikonky */
-    border-radius: 50px;
+    color: #8e8e8e;
+    margin-top: 25px;
+    transition: opacity 0.3s ease;
+}
+
+/* Tlačítko pro přechod dál */
+.next-btn {
+    margin-top: 20px;
+    padding: 12px 28px;
+    
+    /* Bílé pozadí a černý text */
+    background-color: #ffffff;
+    color: #000000;
+    
+    border: 2px solid #000000;
+    border-radius: 25px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
     cursor: pointer;
-    background-color: white; /* Bílá čistá plocha */
-    color: #2d2d2d;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Velmi jemný stín */
-    transition: all 0.3s ease;
-}
-
-    .btn:active {
-        transform: scale(0.9);
-        background-color: #fcfcfc;
-    }
-
-.btn-yes {
-    background-color: #7e9f7c;
-    border-color: rgba(76, 175, 80, 0.3); /* Jen lehounký nádech zelené na okraji */
-}
-
-.btn-no {
-    background-color: white;
-    border-color: #7e9f7c;
-    position: relative; /* Důležité pro pohyb */
-    transition: transform 0.2s ease-out; /* Plynulý úskok */
-    z-index: 11;
-}
-
-/* Styl pro Info Button na úvodní stránce, jak je na obrázku */
-#info-button-container {
-    display: flex !important; /* V JS to zapínáme na FLEX */
-    justify-content: center !important;
-    width: 100% !important;
-    margin-top: 25px !important;
-    opacity: 0; /* Z JS se změní na 1 */
-    transition: opacity 0.8s ease-in-out !important;
-    flex-shrink: 0 !important; /* ZÁKAZ SMRŠTĚNÍ */
-}
-
-/* Celý kontejner (pill) - kompaktnější verze */
-.info-pill {
-    background-color: white !important;
-    border-radius: 50px !important;
-    padding: 6px 18px !important; /* Zmenšeno z 10/25, aby to nebylo tak vysoké */
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    border: 1.5px solid rgba(0,0,0,0.15) !important;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.06) !important;
-    cursor: default;
-    margin: 5px auto !important; /* Zmenšeno z 20px, aby se srdce neroztáhlo */
-    transform: scale(0.95); /* Jemné celkové zmenšení pro lepší proporce */
-    font-style: normal;
-    font-family: 'Archivo Narrow', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 1.5px;
-    text-transform: none;
-}
-
-
-.info-icon {
-    flex-shrink: 0 !important;
-    width: 24px;
-    height: 24px;
-    border: 2px solid rgba(0,0,0,0.3);
-    border-radius: 4px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Tady vynutíme to správné písmo pro "i" nebo datum uvnitř */
-    font-family: 'Archivo Narrow', sans-serif !important;
-    font-size: 0.8rem !important;
-    font-weight: 700 !important;
-    padding-top: 2px;
-}
-
-    .info-icon::before, .info-icon::after {
-        content: '';
-        position: absolute;
-        top: -4px;
-        width: 2px;
-        height: 6px;
-        background: rgba(0,0,0,0.3);
-        border-radius: 2px;
-    }
-
-    .info-icon::before {
-        left: 5px;
-    }
-
-    .info-icon::after {
-        right: 5px;
-    }
-
-@media (max-width: 360px) {
-
-    .info-icon {
-        width: 18px;
-        height: 18px;
-    }
-}
-
-
-/* Nastavení pro tablety a počítače (obrazovka širší než 768px) */
-@media (min-width: 768px) {
-    .screen {
-        padding-top: 0; /* Zrušíme ten horní okraj, co jsme dávali kvůli mobilu */
-    }
-
-    h1 {
-        font-size: 5rem; /* Na velkém monitoru si můžeme dovolit větší nadpis */
-        margin-bottom: 30px;
-    }
-
-    .heart-wrapper {
-        max-width: 470px; /* Srdce na desktopu může být o něco větší */
-    }
-}
-
-
-/* 🐱 SVATEBNÍ KOČIČKA */
-
-#wedding-pet {
-    position: fixed;
-    left: 20px;
-    bottom: 15px;
-
-    width: 100px;
-    z-index: 9999;
-
+    opacity: 0;
     pointer-events: none;
-    cursor: pointer;
-
-    user-select: none;
-    touch-action: manipulation;
-
-    transition: transform 0.2s ease;
+    transition: opacity 0.5s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-#wedding-pet img {
-    display: block;
-    width: 100%;
-    height: auto;
-
-    image-rendering: pixelated;
-
+.next-btn.visible {
+    opacity: 1;
     pointer-events: auto;
-    cursor: pointer;
 }
 
-/* malý efekt při kliknutí */
-
-#wedding-pet.pet-jump {
-    animation: petJump 0.5s ease;
+/* ==========================================
+   3. VNITŘNÍ STRÁNKA (INFORMACE)
+   ========================================== */
+.content-screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    max-width: 650px;
+    width: 90%;
+    margin: 40px auto;
+    padding: 40px 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
 }
 
-@keyframes petJump {
+.content-screen.active {
+    display: block;
+    opacity: 1;
+}
+
+.content-subtitle {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.content-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.details-box {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 25px 0;
+    margin: 25px 0;
+}
+
+.details-item {
+    margin: 10px 0;
+    font-size: 0.95rem;
+}
+
+.details-item strong {
+    color: var(--text-color);
+}
+
+/* Postavička kočičky dole na obrazovce */
+.pixel-cat {
+    position: fixed;
+    bottom: 5px; /* Vzdálenost od spodního okraje */
+    left: -60px; /* Začíná schovaná vlevo mimo obrazovku */
+    width: 45px;  /* Velikost kočičky */
+    height: auto;
+    z-index: 999;
+    pointer-events: none; /* Umožní klikat přes kočičku */
+    image-rendering: pixelated; /* Zachová ostré pixely */
+    
+    /* Plynulý přechod zlevna doprava a zpět */
+    animation: walkAcross 16s linear infinite;
+}
+
+/* Animace pohybu a otáčení postavičky */
+@keyframes walkAcross {
     0% {
-        transform: translateY(0);
+        left: -60px;
+        transform: scaleX(1); /* Jde doprava */
     }
-
-    40% {
-        transform: translateY(-30px) rotate(-5deg);
+    45% {
+        left: 100vw;
+        transform: scaleX(1);
     }
-
-    70% {
-        transform: translateY(0) rotate(5deg);
+    50% {
+        left: 100vw;
+        transform: scaleX(-1); /* Otočí postavičku čumákem doleva */
     }
-
+    95% {
+        left: -60px;
+        transform: scaleX(-1); /* Jde zpátky doleva */
+    }
     100% {
-        transform: translateY(0);
-    }
-}
-
-/* mobil */
-
-@media (max-width: 600px) {
-    #wedding-pet {
-        width: 75px;
-        bottom: 10px;
+        left: -60px;
+        transform: scaleX(1);
     }
 }
 
