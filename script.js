@@ -73,6 +73,8 @@ window.addEventListener("resize", () => {
     }
 });
 
+let hasRevealed = false;
+
 canvas.style.cursor = "pointer";
 
 canvas.addEventListener("click", () => {
